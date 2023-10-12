@@ -30,10 +30,7 @@ export const metadata: Metadata = {
     },
   ],
   creator: "skylerx",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  themeColor: "#FFF",
   openGraph: {
     type: "website",
     locale: "en_US",
