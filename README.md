@@ -1,6 +1,6 @@
 ### Test
 
-[DEMO](https://waitlist.skylerx.ir)
+[DEMO](https://waitlister.skylerx.ir)
 
 ---
 
@@ -27,7 +27,7 @@ const metadata = { userId: 'abcd' }; // Optional
  * way, you don't need to expose your API Key to the public.
  */
 try {
-  const response = await fetch('/api/subscribers', {
+  const response = await fetch('https://waitlister.skylerx.ir/api/subscribers', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const projectId = "PROJECT ID",
 
 let config = {
   method: "GET",
-  url: "https://waitlist.skylerx.ir/api/projects/subscribers",
+  url: "https://waitlister.skylerx.ir/api/projects/subscribers",
   headers: {
     "x-project-id": projectId,
     "x-project-secret": projectSecret,
