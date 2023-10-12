@@ -18,7 +18,7 @@ export default function Home() {
         </p>
         <div className="space-x-2">
           <Link
-            href="/dashboard"
+            href="/api/auth/signin"
             className={buttonVariants({ variant: "default" })}
           >
             Get Started
