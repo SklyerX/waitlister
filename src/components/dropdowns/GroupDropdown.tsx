@@ -30,7 +30,7 @@ export default function GroupDropdown() {
       if (!isLoading && data.length === 0 && pathname !== "/dashboard/create") {
         setName("Loading");
         redirect("/dashboard/create");
-      } else if (data.length !== 0) {
+      } else if (data.length !== 0 && index !== -1) {
         setName(data[index].name);
       }
     }

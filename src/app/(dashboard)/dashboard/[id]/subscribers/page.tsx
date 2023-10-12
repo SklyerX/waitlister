@@ -22,7 +22,7 @@ import toast from "react-hot-toast";
 
 const PER_PAGE = 200;
 
-export const getData = async (page: number, increment = true, id: string) => {
+const getData = async (page: number, increment = true, id: string) => {
   const { data } = await axios.get(
     `/api/projects/subscribers?page=${
       page + (increment ? 1 : 0)

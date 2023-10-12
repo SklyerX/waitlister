@@ -12,7 +12,7 @@ const email = 'janesmith@example.com';
 const name = 'Jane Smith'; // Optional
 const phone = '555-555-5555'; // Optional
 const referredBy = 'abc123'; // Optional
-const metadata = { userId: 'abcd' }; // Optional (Pro only)
+const metadata = { userId: 'abcd' }; // Optional
 
 /* With client-side JavaScript, you don't need the API Key
  * if you call the endpoint from a whitelisted domain. This

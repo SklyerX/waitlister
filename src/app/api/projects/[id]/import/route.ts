@@ -71,6 +71,8 @@ export async function POST(req: Request, { params }: Props) {
     return new Response("Successfully imported subscribers", { status: 200 });
   } catch (err) {
     console.error(err);
-    return new Response("Something went wrong while deleting project!");
+    return new Response("Something went wrong while deleting project!", {
+      status: 500,
+    });
   }
 }

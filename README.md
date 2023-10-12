@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Test
 
-## Getting Started
+[DEMO](https://waitlist.skylerx.ir)
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Requests
+
+When trying to subscribe a user to your waitlist you must provide the `project-id` in the headers as `x-project-id` and the `project-secret` in the headers as `x-project-secret`.
+
+However, if you are sending the request from a trusted domain (set in the domains tab) you wont need the `project-secret`
+
+---
+
+### Subscribe a user
+
+```js
+const waitlist = 'WAITLIST ID';
+const email = 'janesmith@example.com';
+const name = 'Jane Smith'; // Optional
+const phone = '555-555-5555'; // Optional
+const referredBy = 'abc123'; // Optional
+const metadata = { userId: 'abcd' }; // Optional
+
+/* With client-side JavaScript, you don't need the API Key
+ * if you call the endpoint from a whitelisted domain. This
+ * way, you don't need to expose your API Key to the public.
+ */
+try {
+  const response = await fetch('/api/subscribers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-project-id': waitlist
+    },
+    body: JSON.stringify({
+      email,
+      name,
+      phone,
+      referredBy,
+      metadata,
+    }),
+  });
+
+  const body = (await response.json()) as { message: string };
+
+  if (!response.ok) {
+    throw new Error(body.message);
+  }
+
+  window.alert('You have been subscribed!');
+} catch (error) {
+  window.alert(error.message);
+}
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Get subscribers
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```js
+const axios = require("axios");
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+const projectId = "PROJECT ID",
+  projectSecret = "sk_PROJECT_SECRET";
 
-## Learn More
+let config = {
+  method: "GET",
+  url: "https://waitlist.skylerx.ir/api/projects/subscribers",
+  headers: {
+    "x-project-id": projectId,
+    "x-project-secret": projectSecret,
+  },
+};
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+axios
+  .request(config)
+  .then((response) => {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+```
