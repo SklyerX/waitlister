@@ -32,7 +32,7 @@ export default function Home() {
         </div>
         <div className="border rounded-md p-2 mt-10">
           <Image
-            src="/preview.png"
+            src="/og.png"
             alt="Emails Preview"
             className="mt-10 w-full h-full"
             width={1000}
