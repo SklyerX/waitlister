@@ -13,8 +13,7 @@ export default function deleteWaitlist() {
       return data;
     },
     onSuccess: async () => {
-      toast.success("Webhook deleted.");
-      router.replace(`/dashboard/${params.id}/webhooks`);
+      router.replace(`/dashboard/`);
     },
     onError: (err) => {
       if (err instanceof AxiosError) {

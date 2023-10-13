@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 
 export default function getProjects() {
   return useQuery({
-    queryKey: ["projectsRepo"],
+    queryKey: ["projectsDataRepo"],
     queryFn: async () => {
       const { data } = await axios.get(`/api/projects/`);
       return data;
