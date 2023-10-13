@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { redirect, useParams } from "next/navigation";
+import { redirect, useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 export default function getWebhooks() {
   const params = useParams();
+  const router = useRouter();
 
   return useQuery({
     refetchOnWindowFocus: true,
@@ -18,7 +19,7 @@ export default function getWebhooks() {
     },
     onError: (err) => {
       if (err instanceof AxiosError) {
-        if (err.response?.status === 404) return redirect("/dashboard");
+        if (err.response?.status === 404) return router.replace("/dashboard");
 
         if (err.response && typeof err.response.data === "string")
           return toast.error(err.response.data);

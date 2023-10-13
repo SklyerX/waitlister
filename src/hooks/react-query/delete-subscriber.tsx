@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 
 export default function deleteSubscriber() {
   const params = useParams();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: async ({ id }: { id: string }) => {
@@ -20,7 +21,7 @@ export default function deleteSubscriber() {
     },
     onError: (err) => {
       if (err instanceof AxiosError) {
-        if (err.response?.status === 404) return redirect("/dashboard");
+        if (err.response?.status === 404) return router.replace("/dashboard");
 
         if (err.response && typeof err.response.data === "string")
           return toast.error(err.response.data);

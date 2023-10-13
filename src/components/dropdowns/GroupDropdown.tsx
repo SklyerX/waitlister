@@ -2,39 +2,42 @@
 
 import getProjects from "@/hooks/react-query/get-projects";
 import { Project } from "@prisma/client";
+import { ChevronDown, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { redirect, useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import CreateProject from "../dialogs/create-project";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { useEffect, useState } from "react";
-import { redirect, useParams, usePathname } from "next/navigation";
-import { ChevronDown, Loader2 } from "lucide-react";
-import Link from "next/link";
 
 export default function GroupDropdown() {
   const { data, isSuccess, isLoading } = getProjects();
   const [name, setName] = useState<string>("");
 
   const params = useParams();
-  const pathname = usePathname();
 
   useEffect(() => {
     if (isSuccess) {
       const index = data.findIndex((x: Project) => x.projectId === params.id);
 
-      if (!isLoading && data.length === 0 && pathname !== "/dashboard/create") {
+      if (!isLoading && data.length === 0) {
         setName("Loading");
-        redirect("/dashboard/create");
       } else if (data.length !== 0 && index !== -1) {
         setName(data[index].name);
       }
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (!data && data?.length === 0) {
+      redirect("/dashboard/create");
+    }
+  }, [data]);
 
   return (
     <DropdownMenu>

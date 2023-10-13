@@ -1,12 +1,12 @@
-import { DomainCredentials } from "@/lib/validators/domain";
 import { ProjectCredentials } from "@/lib/validators/project";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { redirect, useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 export default function changeName() {
   const params = useParams();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: async ({ name }: ProjectCredentials) => {
@@ -20,7 +20,7 @@ export default function changeName() {
     },
     onError: (err) => {
       if (err instanceof AxiosError) {
-        if (err.response?.status === 404) return redirect("/dashboard");
+        if (err.response?.status === 404) return router.replace("/dashboard");
 
         if (err.response && typeof err.response.data === "string")
           return toast.error(err.response.data);
