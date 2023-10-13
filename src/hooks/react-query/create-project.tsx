@@ -16,7 +16,7 @@ export default function createProject() {
     },
     onSuccess: (data) => {
       toast.success("Created project");
-      router.push(`/dashboard/${data.id}/code`);
+      router.replace(`/dashboard/${data.id}/code`);
     },
     onError: (err) => {
       if (err instanceof AxiosError) {

@@ -1,6 +1,6 @@
 import deleteWebhook from "@/hooks/react-query/delete-webhook";
 import { Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,11 +13,19 @@ import {
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 export default function DeleteWaitlist() {
-  const { mutate, isLoading } = deleteWebhook();
+  const { mutate, isLoading, isSuccess } = deleteWebhook();
+  const router = useRouter();
 
   const [opened, setOpened] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isSuccess) {
+      router.replace("/dashboard");
+    }
+  }, [isSuccess]);
 
   return (
     <AlertDialog
